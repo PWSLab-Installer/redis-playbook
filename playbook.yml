@@ -1,0 +1,23 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    
+
+  tasks:
+    
+    - name: Check the version of CentOS
+      command: hostnamectl
+      register: os_check
+      ignore_errors: yes
+
+    -   name: Install Role Redis
+        local_action: command ansible-galaxy install -f geerlingguy.redis 
+
+    -   name: Applying role Redis
+        command: mv ~/.ansible/roles/geerlingguy.redis ~/.ansible/roles/pwslab.redis
+        ignore_errors: yes
+
+    - name: Installing Redis
+      include_role:
+          name: pwslab.redis
